@@ -1,15 +1,11 @@
 require "arrow"
-require "parquet"
 
 module DatasetsArrow
   module Arrowable
     def to_arrow
-      data_path = cache_dir_path + "data.parquet"
-      data_path_raw = data_path.to_path
+      data_path = arrow_data_path
       if data_path.exist?
-        reader = Parquet::ArrowFileReader.new(data_path_raw)
-        reader.n_threads = 4
-        reader.read_table
+        Arrow::Table.load(data_path)
       else
         columns = {}
         each do |record|
@@ -19,16 +15,34 @@ module DatasetsArrow
           end
         end
         raw_table = {}
-        @columns.each do |name, values|
-          raw_table[name] = Arrow::ArraryBuilder.build(values)
+        columns.each do |name, values|
+          raw_table[name] = Arrow::ArrayBuilder.build(values)
         end
         table = Arrow::Table.new(raw_table)
-        Parquet::ArrowFileWriter.open(table.schema, data_path_raw) do |writer|
-          chunk_size = 1024
-          writer.write_table(table, chunk_size)
-        end
+        table.save(data_path)
         table
       end
+    end
+
+    def each_record_batch(&block)
+      return to_enum(__method__) unless block_given?
+
+      data_path = arrow_data_path
+      if data_path.exist?
+        input = Arrow::MemoryMappedInputStream.new(data_path.to_path)
+        reader = Arrow::RecordBatchFileReader.new(input)
+        reader.each do |record_batch|
+          record_batch.instance_variable_set(:@input, input)
+          yield(record_batch)
+        end
+      else
+        to_arrow.each_record_batch(&block)
+      end
+    end
+
+    private
+    def arrow_data_path
+      cache_dir_path + "data.arrow"
     end
   end
 end
