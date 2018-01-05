@@ -9,7 +9,7 @@ require "datasets-arrow/version"
 
 Gem::Specification.new do |spec|
   spec.name = "red-datasets-arrow"
-  spec.version = Datasets::VERSION
+  spec.version = DatasetsArrow::VERSION
   spec.homepage = "https://github.com/red-data-tools/red-datasets-arrow"
   spec.authors = ["Kouhei Sutou"]
   spec.email = ["kou@clear-code.com"]
