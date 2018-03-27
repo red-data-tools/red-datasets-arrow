@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
   spec.test_files += Dir.glob("test/**/*")
 
   spec.add_runtime_dependency("red-arrow")
-  spec.add_runtime_dependency("red-datasets")
+  spec.add_runtime_dependency("red-datasets", ">= 0.0.3")
 
   spec.add_development_dependency("bundler")
   spec.add_development_dependency("rake")

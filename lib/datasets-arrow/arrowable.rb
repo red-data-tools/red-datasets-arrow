@@ -7,15 +7,8 @@ module DatasetsArrow
       if data_path.exist?
         Arrow::Table.load(data_path)
       else
-        columns = {}
-        each do |record|
-          record.to_h.each do |name, value|
-            values = (columns[name] ||= [])
-            values << value
-          end
-        end
         raw_table = {}
-        columns.each do |name, values|
+        to_table.to_h.each do |name, values|
           raw_table[name] = Arrow::ArrayBuilder.build(values)
         end
         table = Arrow::Table.new(raw_table)
