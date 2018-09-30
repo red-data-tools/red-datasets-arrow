@@ -5,10 +5,10 @@ MAINTAINER Kouhei Sutou <kou@clear-code.com>
 RUN \
   apt update && \
   apt install -y apt-transport-https && \
-  echo "deb https://packages.red-data-tools.org/debian/ stretch main" > \
+  wget -O /usr/share/keyrings/red-data-tools-keyring.gpg \
+    https://packages.groonga.org/debian/red-data-tools-keyring.gpg && \
+  echo "deb [signed-by=/usr/share/keyrings/red-data-tools-keyring.gpg] https://packages.red-data-tools.org/debian/ stretch main" > \
     /etc/apt/sources.list.d/red-data-tools.list && \
-  apt update --allow-insecure-repositories && \
-  apt install -y --allow-unauthenticated red-data-tools-keyring && \
   apt update
 
 RUN mkdir /app
