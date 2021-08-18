@@ -5,7 +5,7 @@ class IrisTest < Test::Unit::TestCase
 
   test("#to_arrow") do
     assert_equal(<<-TABLE, @dataset.to_arrow.to_s)
-	sepal_length	sepal_width	petal_length	petal_width	class
+	sepal_length	sepal_width	petal_length	petal_width	label
   0	    5.100000	   3.500000	    1.400000	   0.200000	Iris-setosa
   1	    4.900000	   3.000000	    1.400000	   0.200000	Iris-setosa
   2	    4.700000	   3.200000	    1.300000	   0.200000	Iris-setosa
@@ -124,7 +124,7 @@ petal_width:   [
     2.3,
     1.8
   ]
-class:   [
+label:   [
     "Iris-setosa",
     "Iris-setosa",
     "Iris-setosa",
