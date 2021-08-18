@@ -12,6 +12,8 @@ module DatasetsArrow
           raw_table[name] = Arrow::ArrayBuilder.build(values)
         end
         table = Arrow::Table.new(raw_table)
+        directory = data_path.parent
+        directory.mkpath unless directory.exist?
         table.save(data_path)
         table
       end
