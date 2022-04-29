@@ -21,7 +21,7 @@ Red Datasets Arrow adds `#to_arrow` method to each dataset in Red Datasets. You 
 Here is an example to access iris dataset by `#to_arrow`:
 
 ```ruby
-require "datasets"
+require "datasets-arrow"
 
 iris = Datasets::Iris.new
 puts iris.to_arrow
