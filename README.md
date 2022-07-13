@@ -8,7 +8,7 @@ Red Datasets Arrow
 
 Red Datasets Arrow adds [Apache Arrow](http://arrow.apache.org/) object export feature to Red Datasets.
 
-Red Datasets Arrow adds `#to_arrow` method to each dataset in Red Datasets. You can get dataset as `Arrow::Table` object. `Arrow::Table` is provided by [Red Arrow](http://github.com/red-data-tools/red-arrow).
+Red Datasets Arrow adds `#to_arrow` method to each dataset in Red Datasets. You can get dataset as `Arrow::Table` object. `Arrow::Table` is provided by [Red Arrow](https://github.com/apache/arrow/tree/master/ruby/red-arrow).
 
 ## Install
 
